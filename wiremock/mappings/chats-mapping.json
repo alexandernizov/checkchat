@@ -1,0 +1,19 @@
+{
+    "request": {
+      "method": "POST",
+      "url": "/chats",
+      "headers": {
+        "Content-Type": {
+          "equalTo": "application/json"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": "{\"message\": \"Chat created successfully\"}",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  }
+  

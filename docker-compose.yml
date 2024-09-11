@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  wiremock:
+    image: wiremock/wiremock:latest
+    container_name: wiremock
+    ports:
+      - "60000:8080"
+    volumes:
+      - ./wiremock/__files:/home/wiremock/__files # Папка для файлов ответов WireMock
+      - ./wiremock/mappings:/home/wiremock/mappings # Папка для конфигураций маппинга запросов и ответов
+    command: ["--verbose", "--local-response-templating"]

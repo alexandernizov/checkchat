@@ -1,0 +1,16 @@
+env: "local"
+
+log:
+  filename: "log.txt"
+
+chatsConsumer:
+  host: "0.0.0.0:9092"
+  topic: "chats"
+  groupId: "chatsGroup"
+  url: "127.0.0.1:60000/chats"
+  retry: 3
+
+messagesConsumer:
+  host: "0.0.0.0:9092"
+  topic: "messages"
+  groupId: "messagesGroup"

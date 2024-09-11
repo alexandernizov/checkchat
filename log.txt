@@ -1,0 +1,2 @@
+time=2024-09-11T11:47:10.242+03:00 level=INFO msg="new urls" msg.Id=10 url=http://somesite.com
+time=2024-09-11T11:47:10.242+03:00 level=INFO msg="new urls" msg.Id=11 url=http://anothersite.ru
