@@ -2,7 +2,6 @@ package hypertext
 
 import (
 	"encoding/json"
-	"fmt"
 	"log/slog"
 	"regexp"
 	"time"
@@ -34,7 +33,7 @@ func (h *Hypertext) Serve() {
 func (h *Hypertext) logHypertextFromMessage() {
 	re := regexp.MustCompile(`https?://[^\s]+`)
 	for msg := range h.chatMessages {
-		id, body := getBodyFromKafkaMessage(msg)
+		id, body := h.getBodyFromKafkaMessage(msg)
 		urls := re.FindAllString(body, -1)
 		for _, url := range urls {
 			h.log.Info("new urls", slog.Attr{Key: "msg.Id", Value: slog.IntValue(id)}, slog.Attr{Key: "url", Value: slog.StringValue(url)})
@@ -42,11 +41,11 @@ func (h *Hypertext) logHypertextFromMessage() {
 	}
 }
 
-func getBodyFromKafkaMessage(msg domain.KafkaMessage) (int, string) {
+func (h *Hypertext) getBodyFromKafkaMessage(msg domain.KafkaMessage) (int, string) {
 	var message message
 	err := json.Unmarshal([]byte(msg.Value), &message)
 	if err != nil {
-		fmt.Println("something gone wrong")
+		h.log.Warn("can't get boddy from kafka message", slog.Attr{Key: "msg.Id", Value: slog.StringValue(msg.Key)}, slog.Attr{Key: "msg.Value", Value: slog.StringValue(msg.Value)})
 	}
 	return message.Id, message.Body
 }
